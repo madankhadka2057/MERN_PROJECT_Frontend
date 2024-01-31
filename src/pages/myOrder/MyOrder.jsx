@@ -9,14 +9,14 @@ const MyOrder = () => {
     const [selectItem,setselectItem]=useState("all")
     const [searchTerm,setSearchTerm]=useState('')
     const [date,setDate]=useState("")
-    console.log(date)
+    console.log(orders)
     // console.log(orders)
     useEffect(()=>{
         dispatch(fetchOrder())
     },[])
     // const filterOrders=selectItem==="all":orders?orders.filter((order)=>order.orderStatus===selectItem)
     const filterOrders=orders?.filter((order)=>( selectItem==="all"||order.orderStatus.toLowerCase()===selectItem))
-    .filter((orders)=>orders.items[0].product.productName.toLowerCase().includes(searchTerm)||orders._id.toLowerCase().includes(searchTerm.toLowerCase()))
+    // .filter((orders)=>orders?.items[0].product.productName.toLowerCase().includes(searchTerm)||orders._id.toLowerCase().includes(searchTerm.toLowerCase()))
     .filter((orders)=>date===""|| new Date(orders.createdAt).toLocaleDateString()===new Date(date).toLocaleDateString())
   return (
 
@@ -117,21 +117,21 @@ const MyOrder = () => {
                                     <div className="flex items-center">
                                         <div className="flex-shrink-0 w-10 h-10">
                                             <img className="w-full h-full rounded-full"
-                                                src={product.items[0].product.productImage}
+                                                src={product?.items[0]?.product.productImage}
                                                 alt="" />
                                         </div>
                                         <div className="ml-3">
                                             <p className="text-gray-900 whitespace-no-wrap">
-                                                {product.items[0].product.productName}
+                                                {product?.items[0]?.product.productName}
                                             </p>
                                         </div>
                                     </div>
                                 </td>
                                 <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <Link to={`/orderdetails/${product._id}`}><p className="text-blue-600 whitespace-no-wrap" style={{textDecoration:"underline"}}>{product._id}</p></Link>    
+                                <Link to={`/orderdetails/${product?._id}`}><p className="text-blue-600 whitespace-no-wrap" style={{textDecoration:"underline"}}>{product?._id}</p></Link>    
                                 </td>
                                 <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <p className="text-gray-900 whitespace-no-wrap">{product.items[0].product.productPrice}({product.items[0].quantity})</p>
+                                    <p className="text-gray-900 whitespace-no-wrap">{product?.items[0]?.product.productPrice}({product?.items[0]?.quantity})</p>
                                 </td>
                                 <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                     <p className="text-gray-900 whitespace-no-wrap">
@@ -143,7 +143,7 @@ const MyOrder = () => {
                                         className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
                                         <span aria-hidden
                                             className="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
-                                        <span className="relative">{product.paymentDetails.status}</span>
+                                        <span className="relative">{product?.paymentDetails?.status}</span>
                                     </span>
                                 </td>
                                 <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">

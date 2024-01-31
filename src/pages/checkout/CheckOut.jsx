@@ -5,10 +5,10 @@ import { createOrder } from "../../store/checkOutSlice";
 import { useNavigate } from "react-router-dom";
 import { STATUSES } from "../../global/components/misc/Staruses";
 import { AuthenticatedApi } from "../../http";
+import { deleteCartItem, emptyItems } from "../../store/cartSlice";
 const CheckOut = () => {
     const navigate=useNavigate()
     const { items: products } = useSelector((state) => state.cart);
-    //   console.log(products);
     const dispatch=useDispatch()
     const {register,handleSubmit,formState}=useForm()
     const [paymentMethod,setPaymentMethod]=useState("COD")
@@ -37,6 +37,7 @@ const CheckOut = () => {
         }
         if(paymentMethod==="COD"&&status===STATUSES.SUCCESS&&data.length>0){
             alert("Order Placed Successfully")
+            dispatch(emptyItems())
         }
     }
     useEffect(()=>{
