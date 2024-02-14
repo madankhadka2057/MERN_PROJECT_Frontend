@@ -1,3 +1,6 @@
+
+
+
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 // import router from './routers'
 // import Footer from './global/components/footer/Footer'
@@ -17,9 +20,7 @@ import UserProfile from './pages/profile/UserProfile'
 import MyOrder from './pages/myOrder/MyOrder'
 import OrderDetails from './pages/orderDetails/OrderDetails'
 
-
 // import Khalti from './pages/khalti/Khalti'
-
 function App() {
   return (
     <>
