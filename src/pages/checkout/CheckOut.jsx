@@ -2,13 +2,13 @@ import { useDispatch, useSelector } from "react-redux";
 import {useForm} from 'react-hook-form'
 import { useEffect, useState } from "react";
 import { createOrder } from "../../store/checkOutSlice";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { STATUSES } from "../../global/components/misc/Staruses";
 import { AuthenticatedApi } from "../../http";
-import { deleteCartItem, emptyItems } from "../../store/cartSlice";
+import { emptyItems } from "../../store/cartSlice";
 
 const CheckOut = () => {
-    const navigate=useNavigate()
+    // const navigate=useNavigate()
     const { items: products } = useSelector((state) => state.cart);
     const dispatch=useDispatch()
     const {register,handleSubmit,formState}=useForm()
@@ -147,8 +147,6 @@ const CheckOut = () => {
             </div>
           </form>
         </div>
-
-
 
 
       <form onSubmit={handleSubmit((data)=>{
