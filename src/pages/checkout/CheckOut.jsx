@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { createOrder } from "../../store/checkOutSlice";
 // import { useNavigate } from "react-router-dom";
 import { STATUSES } from "../../global/components/misc/Staruses";
-import {AuthenticatedApi} from "../../http"
+import {AuthenticatedApi} from "./../../http"
 import { emptyItems } from "../../store/cartSlice";
 
 const CheckOut = () => {
