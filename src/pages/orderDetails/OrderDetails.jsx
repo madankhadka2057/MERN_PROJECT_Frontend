@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
-import {AuthenticatedApi} from "../../http"
+import {AuthenticatedApi} from "./../../http"
 const OrderDetails = () => {
     const {id}=useParams()
     const {orders}=useSelector((state)=>state.checkout)
