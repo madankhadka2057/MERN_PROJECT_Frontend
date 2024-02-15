@@ -18,7 +18,7 @@ import CheckOut from './pages/checkout/CheckOut'
 import KhaltiSuccess from './pages/success/KhaltiSuccess'
 import UserProfile from './pages/profile/UserProfile'
 import MyOrder from './pages/myOrder/MyOrder'
-import OrderDetails from './pages/orderDetails/OrderDetails.jsx'
+import OrderDetails from './pages/orderDetails/OrderDetails'
 
 // import Khalti from './pages/khalti/Khalti'
 function App() {
