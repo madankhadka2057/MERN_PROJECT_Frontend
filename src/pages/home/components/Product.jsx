@@ -29,6 +29,7 @@ const Product = () => {
                 return(
                     <>
                         <div onClick={()=>navigate(`/productdetails/${product._id}`)} key={product._id} className="mx-auto mt-11 w-80 transform overflow-hidden rounded-lg bg-white dark:bg-slate-800 shadow-md duration-300 hover:scale-90 hover:shadow-lg">
+                            {console.log(product.productImage)}
                             <img className="h-48 w-full object-cover object-center" src={product.productImage} alt="Product Image" />
                             <div className="p-4">
                                 <h2 className="mb-2 text-lg font-medium dark:text-white text-gray-900">{product.productName}</h2>

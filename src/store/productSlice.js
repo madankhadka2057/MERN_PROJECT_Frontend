@@ -39,6 +39,7 @@ export function fetchProducts(){
         try{
             const response=await API.get("/products")
             dispatch(setProducts(response.data.data))
+            console.log(response)
             dispatch(setStatus(STATUSES.SUCCESS))
               
         }catch(error){
