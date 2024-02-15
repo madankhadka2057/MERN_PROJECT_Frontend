@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import {AuthenticatedApi} from '../../http/Index'
+import {AuthenticatedApi} from '../../http/Hello'
 import Loader from '../../global/components/loader/Loader'
 import {useNavigate} from 'react-router-dom'
 import { useDispatch } from 'react-redux'
