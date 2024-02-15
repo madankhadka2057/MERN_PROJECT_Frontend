@@ -1,6 +1,6 @@
 
 import {createSlice} from "@reduxjs/toolkit"
-import { AuthenticatedApi } from "../http"
+import { AuthenticatedApi } from "../http/Hello"
 import { STATUSES } from "../global/components/misc/Staruses"
 
 const cartSlice=createSlice({

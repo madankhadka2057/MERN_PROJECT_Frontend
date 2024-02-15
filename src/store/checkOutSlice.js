@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { STATUSES } from "../global/components/misc/Staruses";
-import { AuthenticatedApi } from "../http";
+import { AuthenticatedApi } from "../http/Hello";
 
 const checkOutSlice=createSlice({
     name:"cherkout",
