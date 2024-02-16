@@ -127,7 +127,7 @@ const OrderDetails = () => {
           
           <div className="flex w-full justify-center items-center md:justify-start md:items-start">
           {
-            filteredOrder?.orderStatus!=="cancelled"(
+            filteredOrder?.orderStatus!=="cancelled"&&(
               <button className="mt-8  md:mt-0 dark:border-white dark:hover:bg-gray-900 dark:bg-transparent dark:text-white py-3 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-gray-800 font-medium w-96 2xl:w-full text-base font-medium leading-4 text-gray-800" style={{marginTop:"10px",border:"1px solid blue" ,borderRadius:"4px"}}>Edit Order</button>
             )
           }
