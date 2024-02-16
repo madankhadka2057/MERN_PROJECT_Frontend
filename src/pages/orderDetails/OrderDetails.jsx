@@ -25,11 +25,12 @@ const OrderDetails = () => {
         try{
           const response= await AuthenticatedApi.delete(`orders/${id}`)
           console.log(response.status)
-          console.log(response.data)
+          console.log(response.data.message)
           if(response.status===200){
             navigate('/myorder')
           }
          }catch(error){
+          console.log(error)
           alert("Some thing error",error)
          }
         }
