@@ -64,3 +64,16 @@ export function loginUser(data) {
     }
   };
 }
+// export function fetchProfile(){
+//   return async function fetchProfileThunk(dispatch){
+//     dispatch(setStatus(STATUSES.LOADING))
+//     try{
+//       const response=await AuthenticatedApi.get("/")
+//       dispatch(setUser(response.data.data))
+//       dispatch(setStatus(STATUSES.SUCCESS))
+//       console.log(response.data)
+//     }catch(err){
+//       console.log("Error is :",err)
+//     }
+//   }
+// }

@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 const API=axios.create({
-    baseURL:"https://foodorder-8jma.onrender.com/api",
+    baseURL:"http://localhost:3001/api",
     headers:{
         "Content-Type":"application/json",
         Accept:"application/json"
@@ -11,7 +11,7 @@ const API=axios.create({
 
 
 const AuthenticatedApi=axios.create({
-    baseURL:"https://foodorder-8jma.onrender.com/api",
+    baseURL:"http://localhost:3001/api",
     headers:{
         "Content-Type":"application/json",
         Accept:"application/json",
@@ -19,4 +19,4 @@ const AuthenticatedApi=axios.create({
     }
 })
 export  {AuthenticatedApi,API}
-// https://foodorder-8jma.onrender.com
+// https://foodorder-8jma.onrender.com/api

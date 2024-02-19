@@ -2,12 +2,12 @@ import { useDispatch, useSelector } from "react-redux";
 import {useForm} from 'react-hook-form'
 import { useEffect, useState } from "react";
 import { createOrder } from "../../store/checkOutSlice";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { STATUSES } from "../../global/components/misc/Staruses";
 import {AuthenticatedApi} from "../../http/Hello"
 import { emptyItems } from "../../store/cartSlice";
 const CheckOut = () => {
-    // const navigate=useNavigate()
+    const navigate=useNavigate()
     const { items: products } = useSelector((state) => state.cart);
     const dispatch=useDispatch()
     const {register,handleSubmit,formState}=useForm()
@@ -38,6 +38,7 @@ const CheckOut = () => {
         if(paymentMethod==="COD"&&status===STATUSES.SUCCESS&&data.length>0){
             alert("Order Placed Successfully")
             dispatch(emptyItems())
+            navigate("/")
         }
     }
     useEffect(()=>{

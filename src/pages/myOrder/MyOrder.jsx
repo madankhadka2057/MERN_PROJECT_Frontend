@@ -9,8 +9,6 @@ const MyOrder = () => {
     const [selectItem,setselectItem]=useState("all")
     const [searchTerm,setSearchTerm]=useState('')
     const [date,setDate]=useState("")
-    console.log(orders)
-    // console.log(orders)
     useEffect(()=>{
         dispatch(fetchOrder())
     },[])

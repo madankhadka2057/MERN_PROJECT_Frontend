@@ -26,7 +26,8 @@ export const Cart = () => {
     <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
       <div className="rounded-lg md:w-2/3">
        {
-        products.map((product)=>{
+        products.length>0?(
+          products?.map((product)=>{
           return(
             <>
                <div key={product.product?._id}className="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
@@ -50,29 +51,36 @@ export const Cart = () => {
               </div>
             </div>
           </div>
+          
         </div>
             </>
           )
-        })
-
+          
+        }))
+        :(<h1 style={{fontSize:"40px",textAlign:"center",fontWeight:"bold"}}>Please Add Items to Cart</h1>)
        }
       </div>
-      <div className="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3">
-        <div className="mb-2 flex justify-between">
-          <p className="text-gray-700">Total Items</p>
-          <p className="text-gray-700">{totalItemsInCart}</p>
-        </div>
-      
-        <hr className="my-4" />
-        <div className="flex justify-between">
-          <p className="text-lg font-bold">Total Price</p>
-          <div className="">
-            <p className="mb-1 text-lg font-bold">{totalPriceInCart}</p>
-            <p className="text-sm text-gray-700">including VAT</p>
+      {
+        products.length>0 &&(
+          <div className="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3">
+          <div className="mb-2 flex justify-between">
+            <p className="text-gray-700">Total Items</p>
+            <p className="text-gray-700">{totalItemsInCart}</p>
           </div>
+        
+          <hr className="my-4" />
+          <div className="flex justify-between">
+            <p className="text-lg font-bold">Total Price</p>
+            <div className="">
+              <p className="mb-1 text-lg font-bold">{totalPriceInCart}</p>
+              <p className="text-sm text-gray-700">including VAT</p>
+            </div>
+          </div>
+          <button onClick={()=>navigate("/checkout")} className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">Check out</button>
         </div>
-        <button onClick={()=>navigate("/checkout")} className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">Check out</button>
-      </div>
+        )
+      }
+      
     </div>
   </div>
   )
