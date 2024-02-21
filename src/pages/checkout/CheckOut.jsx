@@ -52,6 +52,7 @@ const CheckOut = () => {
 
     const handleKhalti=async(orderId,amount)=>{
         try {
+          
             const response = await AuthenticatedApi.post(`/payment`, { orderId, amount });
             // console.log(response.data.payment_url)
             if(response.status===200){

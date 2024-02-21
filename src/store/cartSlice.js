@@ -80,9 +80,9 @@ export function updateCartItem(productId,quantity){
     return async function updateCartItemThunk(dispatch){
         dispatch(setStatus(STATUSES.LOADING))
         try{
-            console.log(productId)
+            // console.log(productId)
             const response=await AuthenticatedApi.patch(`/cart/${productId}`,{quantity})
-            console.log(response.data.data)
+            // console.log(response.data.data)
             dispatch(updateItems({productId,quantity}))
             dispatch(setStatus(STATUSES.SUCCESS))
               
@@ -97,8 +97,8 @@ export function deleteCartItem(productId){
     return async function deleteCartItemThunk(dispatch){
         dispatch(setStatus(STATUSES.LOADING))
         try{
-            const response=await AuthenticatedApi.delete(`/cart/${productId}`)
-            console.log(response.data.message)
+             AuthenticatedApi.delete(`/cart/${productId}`)
+            // console.log(response.data.message)
             dispatch(deleteItems({productId}))
             dispatch(setStatus(STATUSES.SUCCESS))
         }

@@ -32,7 +32,7 @@ export function createOrder(orderDetails){
        try{
         const  response=await AuthenticatedApi.post(`/orders`,orderDetails)
         dispatch(setOrder(response.data.data))
-        console.log(response.data.data)
+        // console.log(response.data.data)
         dispatch(setStatus(STATUSES.SUCCESS))
        }
        catch(error){

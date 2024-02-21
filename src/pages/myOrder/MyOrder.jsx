@@ -14,7 +14,8 @@ const MyOrder = () => {
     },[])
     // const filterOrders=selectItem==="all":orders?orders.filter((order)=>order.orderStatus===selectItem)
     const filterOrders=orders?.filter((order)=>( selectItem==="all"||order.orderStatus.toLowerCase()===selectItem))
-    // .filter((orders)=>orders?.items[0].product.productName.toLowerCase().includes(searchTerm)||orders._id.toLowerCase().includes(searchTerm.toLowerCase()))
+    .filter((orders)=>orders?.items[0].product.productName.toLowerCase().includes(searchTerm)||
+                      orders._id.toLowerCase().includes(searchTerm.toLowerCase()))
     .filter((orders)=>date===""|| new Date(orders.createdAt).toLocaleDateString()===new Date(date).toLocaleDateString())
   return (
 
