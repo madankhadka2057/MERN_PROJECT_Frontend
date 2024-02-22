@@ -5,8 +5,7 @@ import {useNavigate} from 'react-router-dom'
 export const Cart = () => {
   const navigate=useNavigate()
   const {items:products}=useSelector((state)=>state.cart)
-  const dispatch=useDispatch(0)
-  console.log(products)
+  const dispatch=useDispatch()
   const totalItemsInCart=products.reduce((total,items)=>items.quantity+total,0)
   const totalPriceInCart=products.reduce((amount,items)=>items.quantity*items.product.productPrice+amount,0)
 

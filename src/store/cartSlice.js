@@ -44,9 +44,7 @@ export function addToCart(productId){
     return async function addToCartThunk(dispatch){
         dispatch(setStatus(STATUSES.LOADING))
         try{
-            console.log(productId)
             const response=await AuthenticatedApi.post(`/cart/${productId}`)
-            console.log(response.data.data)
             dispatch(setItems(response.data.data))
             dispatch(setStatus(STATUSES.SUCCESS))
               
