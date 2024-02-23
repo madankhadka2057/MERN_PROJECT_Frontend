@@ -47,7 +47,7 @@ export function addToCart(productId){
             const response=await AuthenticatedApi.post(`/cart/${productId}`)
             dispatch(setItems(response.data.data))
             dispatch(setStatus(STATUSES.SUCCESS))
-              
+            console.log(response.data.data)
         }catch(error){
             console.log("The error is !!!!!!!!!!!!"+error)
             dispatch(setStatus(STATUSES.ERROR))
