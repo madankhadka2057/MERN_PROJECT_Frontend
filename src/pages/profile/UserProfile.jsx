@@ -27,8 +27,8 @@ const UserProfile = () => {
                     </div>
 
                     <div className="flex flex-col justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none"style={{border:"2px solid blue",display:"flex",justifyContent:"center",color:"purple"}}>
-                    <Link to="/myorder" className="text-base font-medium text-navy-700 dark:text-white">
-                       My Orders
+                    <Link to="/myorderqrs" className="text-base font-medium text-navy-700 dark:text-white">
+                       My Order Qrs
                     </Link>
                     </div>
 
@@ -39,7 +39,7 @@ const UserProfile = () => {
                     </div>
                 </div>
             </div>  
-            <p className="font-normal text-navy-700 mt-20 mx-auto w-max">Profile Card component from </p>  
+            {/* <p className="font-normal text-navy-700 mt-20 mx-auto w-max">Profile Card component from </p>   */}
         </div>
     </div>
   )

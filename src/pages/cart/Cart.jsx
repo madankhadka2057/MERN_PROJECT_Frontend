@@ -6,8 +6,8 @@ export const Cart = () => {
   const navigate=useNavigate()
   const {items:products}=useSelector((state)=>state.cart)
   const dispatch=useDispatch()
-  const totalItemsInCart=products.reduce((total,items)=>items.quantity+total,0)
-  const totalPriceInCart=products.reduce((amount,items)=>items.quantity*items.product.productPrice+amount,0)
+  const totalItemsInCart=products?.reduce((total,items)=>items?.quantity+total,0)
+  const totalPriceInCart=products?.reduce((amount,items)=>items.quantity*items?.product?.productPrice+amount,0)
 
 
   const handleQuantityChange=(productId,newQuantity)=>{
@@ -33,15 +33,15 @@ export const Cart = () => {
           <img src={product.product?.productImage} alt="product-image" className="w-full rounded-lg sm:w-40" />
           <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
             <div className="mt-5 sm:mt-0">
-              <h2 className="text-lg font-bold text-gray-900">{product.product?.productName}</h2>
-              <p className="mt-1 text-xs text-gray-700">NRP {product.product?.productPrice}</p>
+              <h2 className="text-lg font-bold text-gray-900">{product?.product?.productName}</h2>
+              <p className="mt-1 text-xs text-gray-700">NRP {product?.product?.productPrice}</p>
             </div>
             <div className="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
               <div className="flex items-center border-gray-100">
-                <span onClick={()=>handleQuantityChange(product.product._id,product.quantity-1)}className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"> - </span>
-                <input onChange={(e)=>handleQuantityChange(product.product._id,e.target.value)} className="h-8 w-8 border bg-white text-center text-xs outline-none" type="number" value={product?.quantity} min="1" />
+                <span onClick={()=>handleQuantityChange(product?.product?._id,product?.quantity-1)}className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"> - </span>
+                <input onChange={(e)=>handleQuantityChange(product?.product?._id,e.target.value)} className="h-8 w-8 border bg-white text-center text-xs outline-none" type="number" value={product?.quantity} min="1" />
                 {/* {console.log(product.product._id)} */}
-                <span onClick={()=>handleQuantityChange(product.product._id,product.quantity+1)} className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"> + </span>
+                <span onClick={()=>handleQuantityChange(product?.product?._id,product?.quantity+1)} className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"> + </span>
               </div>
               <div onClick={()=>handleDeleteItem(product.product._id)} className="flex items-center space-x-4">
                 <svg  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="h-5 w-5 cursor-pointer duration-150 hover:text-red-500">
