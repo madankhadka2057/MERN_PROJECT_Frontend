@@ -1,4 +1,29 @@
+import {useEffect} from 'react'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch, useSelector } from "react-redux";
+import { STATUSES } from '../../../../../frontendAdmin/src/globals/misc/Statuses';
+import { setLoginStatus } from '../../../store/authSlice';
 export const Hero = () => {
+    let {loginStatus,errorMsg} = useSelector((state) => state.auth);
+    // console.log(loginStatus,errorMsg)
+    const dispatch=useDispatch()
+    useEffect(()=>{
+       if(loginStatus===STATUSES.SUCCESS){
+        toast(errorMsg,{position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
+       }
+       dispatch(setLoginStatus(null))
+       // eslint-disable-next-line  
+    },[loginStatus,errorMsg])
+
   return (
     <div>
 <div className="relative w-full">
@@ -34,6 +59,7 @@ export const Hero = () => {
         </div>
     </div>
 </div>
+<ToastContainer/>
     </div>
   )
 }

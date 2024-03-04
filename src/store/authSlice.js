@@ -7,7 +7,8 @@ const authSlice = createSlice({
     data: [],
     status: "",
     token: "",
-    errorMsg:""
+    errorMsg:"",
+    loginStatus:""
   },
   reducers: {
     setUser(state, action) {
@@ -26,11 +27,14 @@ const authSlice = createSlice({
     },
     setErrorMessage(state,action){
       state.errorMsg=action.payload
+    },
+    setLoginStatus(state,action){
+      state.loginStatus=action.payload
     }
   },
 });
 
-export const { setUser, setStatus, setToken,logOut,setErrorMessage} = authSlice.actions;
+export const { setUser, setStatus, setToken,logOut,setErrorMessage,setLoginStatus} = authSlice.actions;
 export default authSlice.reducer;
 
 export function registerUser(data) {
@@ -54,7 +58,9 @@ export function loginUser(data) {
     dispatch(setStatus(STATUSES.LOADING));
     try {
       const response = await API.post("/auth/login", data);
-      console.log(response);
+      // console.log(response); 
+      dispatch(setLoginStatus('success'))
+      dispatch(setErrorMessage(response.data.message));
       dispatch(setUser(response.data.data));
       dispatch(setToken(response.data.token));
       localStorage.setItem("token", response.data.token);

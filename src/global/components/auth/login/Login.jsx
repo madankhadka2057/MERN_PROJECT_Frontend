@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../../../store/authSlice";
 import { STATUSES } from "../../misc/Staruses";
@@ -33,11 +33,12 @@ export const Login = () => {
     useEffect(() => {
 
 
-      if (status === STATUSES.LOGIN_SUCCESS) navigate("/");
-      
+      if (status === STATUSES.LOGIN_SUCCESS) {
+        navigate("/"); 
+      }
   
       if (status === STATUSES.ERROR) toast(errorMsg,{position: "top-right",
-      autoClose: 1000,
+      autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -45,7 +46,7 @@ export const Login = () => {
       progress: undefined,
       theme: "dark",
       });
-        // eslint-disable-next-line  
+     // eslint-disable-next-line  
     }, [status, errorMsg])
     
 
