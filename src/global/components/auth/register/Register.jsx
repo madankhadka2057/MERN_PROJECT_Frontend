@@ -30,7 +30,6 @@ export const Register = () => {
   }
   useEffect(()=>{
     if(status==STATUSES.SUCCESS){
-      console.log("from register",status)
       return navigate("/login")
      
     }
@@ -46,10 +45,10 @@ export const Register = () => {
 
   
   return (
-<div className=" bg-indigo-100 pt-16 flex justify-center items-center">
-	<div className="lg:w-2/5 md:w-1/2 w-2/5">
-		<form onSubmit={handleSubmit} className="bg-white p-10 rounded-lg shadow-lg min-w-full">
-			<h1 className="text-center text-2xl mb-6 text-gray-600 font-bold font-sans">htmlFormregister</h1>
+<div className=" bg-indigo-100 pt-16 w-full my-6  flex justify-center items-center">
+	<div className=" bg-white w-full md:w-full sm:w-full lg:w-2/5">
+		<form onSubmit={handleSubmit} className=" w-full  p-10 rounded-lg shadow-lg min-w-full">
+			<h1 className="text-center text-2xl mb-6 text-gray-600 font-bold font-sans">Register Form</h1>
 			<div>
 				<label className="text-gray-800 font-semibold block my-3 text-md" htmlFor="username">Username</label>
 				<input onChange={handleChange} className="w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none" type="text" name="username" id="username" placeholder="username" autoComplete="username" />

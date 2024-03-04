@@ -5,8 +5,9 @@ const authSlice = createSlice({
   name: "auth",
   initialState: {
     data: [],
-    status: STATUSES.SUCCESS,
+    status: "",
     token: "",
+    errorMsg:""
   },
   reducers: {
     setUser(state, action) {
@@ -22,11 +23,14 @@ const authSlice = createSlice({
       state.data = [];
       state.token=null,
       state.status=STATUSES.SUCCESS
+    },
+    setErrorMessage(state,action){
+      state.errorMsg=action.payload
     }
   },
 });
 
-export const { setUser, setStatus, setToken,logOut } = authSlice.actions;
+export const { setUser, setStatus, setToken,logOut,setErrorMessage} = authSlice.actions;
 export default authSlice.reducer;
 
 export function registerUser(data) {
@@ -64,16 +68,48 @@ export function loginUser(data) {
     }
   };
 }
-// export function fetchProfile(){
-//   return async function fetchProfileThunk(dispatch){
-//     dispatch(setStatus(STATUSES.LOADING))
-//     try{
-//       const response=await AuthenticatedApi.get("/")
-//       dispatch(setUser(response.data.data))
-//       dispatch(setStatus(STATUSES.SUCCESS))
-//       console.log(response.data)
-//     }catch(err){
-//       console.log("Error is :",err)
-//     }
-//   }
-// }
+export function forgetPassword(email){
+  return async function forgetPasswordThunk(dispatch){
+    dispatch(setStatus(STATUSES.LOADING))
+    try{
+      const response=await API.post("/auth/forgetPassword",{email})
+      dispatch(setUser(response.data))
+      dispatch(setStatus(STATUSES.SUCCESS))
+      // console.log(response.data)
+    }catch(err){
+      dispatch(setStatus(STATUSES.ERROR))
+      console.log("Error is :",err)
+    }
+  }
+}
+export function verifyOtp(data){
+  return async function verifyOtpThunk(dispatch){
+    dispatch(setStatus(STATUSES.LOADING))
+    try{
+      const response=await API.post("/auth/verifyOtp",{email:data.email,otp:data.otp})
+      // dispatch(setUser(response.data))
+      dispatch(setStatus(STATUSES.SUCCESS))
+      console.log(response)
+    }catch(err){
+      dispatch(setStatus(STATUSES.ERROR))
+      console.log("Error is :",err)
+    }
+  }
+}
+export function resetPassword(data){
+  return async function resetPasswordThunk(dispatch){
+    dispatch(setStatus(STATUSES.LOADING))
+    try{
+      console.log(data)
+      const response=await API.post("/auth/resetPassword",data)
+      // dispatch(setUser(response.data))
+      dispatch(setStatus(STATUSES.SUCCESS))
+      console.log(response)
+    }catch(err){
+      dispatch(setStatus(STATUSES.ERROR))
+      console.log("Error is :",err)
+      // console.log(err.response.data.message)
+      dispatch(setErrorMessage(err.response.data))
+    }
+  }
+}

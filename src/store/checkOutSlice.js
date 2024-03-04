@@ -18,12 +18,40 @@ const checkOutSlice=createSlice({
         },
         setOrders(state,action){
             state.orders=action.payload
+        },
+        setOrderStatus(state, action) {
+            let updatedOrders = state.orders?.map((order) => {
+                if (order._id === action.payload.orderId) {
+                    return { ...order, orderStatus: action.payload.status };
+                } else {
+                    return order;
+                }
+            });
+        
+            return { ...state, orders: updatedOrders };
+        },
+        setPaymentStatus(state, action) {
+            let updatedOrders = state.orders?.map((order) => {
+                if (order._id === action.payload.orderId) {
+                    return { 
+                        ...order,
+                        paymentDetails: {
+                            ...order.paymentDetails,
+                            status: action.payload.status 
+                        }
+                    };
+                } else {
+                    console.log("Hello world");
+                    return order;
+                }
+            });
+            return { ...state, orders: updatedOrders };
         }
     }
 })
 
 
-export const {setOrder,setStatus,setOrders}=checkOutSlice.actions
+export const {setOrder,setStatus,setOrders,setOrderStatus,setPaymentStatus}=checkOutSlice.actions
 export default checkOutSlice.reducer
 
 export function createOrder(orderDetails){
@@ -53,5 +81,17 @@ export function fetchOrder(){
        catch(error){
         console.log("Error from checkout slice is ",error)
        }
+    }
+}
+export function updateOrderStatusInStore(data){
+    return async function updateOrderStatusInStoreThunk(dispatch){
+        // console.log(data)
+        dispatch(setOrderStatus(data))
+    }
+}
+export function updatePaymentStatusInStore(data){
+    return async function updatePaymentStatusInStoreThunk(dispatch){
+        // console.log(data)
+        dispatch(setPaymentStatus(data))
     }
 }

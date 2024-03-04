@@ -1,7 +1,8 @@
 import {useDispatch, useSelector} from 'react-redux'
-import { fetchOrder } from '../../store/checkOutSlice'
+import { fetchOrder, updateOrderStatusInStore, updatePaymentStatusInStore } from '../../store/checkOutSlice'
 import { useEffect, useState } from 'react'
 import {Link} from 'react-router-dom'
+import { socket } from '../../App'
 const MyOrder = () => {
 
     const dispatch=useDispatch()
@@ -9,6 +10,7 @@ const MyOrder = () => {
     const [selectItem,setselectItem]=useState("all")
     const [searchTerm,setSearchTerm]=useState('')
     const [date,setDate]=useState("")
+
     useEffect(()=>{
         dispatch(fetchOrder())
     },[])
@@ -17,6 +19,19 @@ const MyOrder = () => {
     .filter((orders)=>orders?.items[0].product?.productName.toLowerCase().includes(searchTerm)||
                       orders._id.toLowerCase().includes(searchTerm.toLowerCase()))
     .filter((orders)=>date===""|| new Date(orders.createdAt).toLocaleDateString()===new Date(date).toLocaleDateString())
+
+    useEffect(()=>{
+        socket.on("statusUpdated",(data)=>{
+            // console.log(data)
+            dispatch(updateOrderStatusInStore(data))
+        })
+
+        socket.on("paymentUpdated",(data)=>{
+            console.log(data)
+            dispatch(updatePaymentStatusInStore(data))
+        })
+    },[socket])
+
   return (
 
     <div className="container mt-16 mx-auto px-4 sm:px-8">
@@ -31,7 +46,7 @@ const MyOrder = () => {
                     <div className="relative">
                         <select
                             onChange={(e)=>(setselectItem(e.target.value))}
-                            className="appearance-none h-full rounded-r border-t sm:rounded-r-none sm:border-r-0 border-r border-b block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:border-l focus:border-r focus:bg-white focus:border-gray-500">
+                            className=" h-full rounded-r border-t sm:rounded-r-none sm:border-r-0 border-r border-b block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:border-l focus:border-r focus:bg-white focus:border-gray-500">
                             <option value="all">All</option>
                             <option value="pending">Pending</option>
                             <option value="delivered">Delivered</option>

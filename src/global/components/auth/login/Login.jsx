@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../../../store/authSlice";
 import { STATUSES } from "../../misc/Staruses";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -26,8 +26,6 @@ export const Login = () => {
     dispatch(loginUser(userData));
 
     if (status === STATUSES.SUCCESS) {
-      const token = localStorage.getItem("token");
-      console.log(token);
       navigate("/");
     }
 
@@ -96,12 +94,12 @@ export const Login = () => {
               Remember me
             </label>
           </div>
-          <a
-            href="#"
+          <Link
+            to="/forgotpassword"
             className="ms-auto text-sm text-blue-700 hover:underline dark:text-blue-500"
           >
             Lost Password?
-          </a>
+          </Link>
         </div>
         <button
           type="submit"

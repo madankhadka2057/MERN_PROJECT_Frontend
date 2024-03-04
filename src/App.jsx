@@ -1,7 +1,7 @@
 
 
 
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+
 // import router from './routers'
 // import Footer from './global/components/footer/Footer'
 // import Navbar from './global/components/navebar/Navbar'
@@ -20,6 +20,25 @@ import UserProfile from './pages/profile/UserProfile'
 import MyOrder from './pages/myOrder/MyOrder'
 import OrderDetails from './pages/orderDetails/OrderDetails'
 import MyOrderQrs from './pages/MyOrderQrs/MyOrderQrs'
+import ForgotPassword from './global/components/auth/forgotPassword/ForgotPassword'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import VerifyOtp from './global/components/auth/forgotPassword/VerifyOtp'
+import ResetPassword from './global/components/auth/forgotPassword/ResetPassword'
+
+
+import {io} from 'socket.io-client'
+export const socket=io("http://localhost:3001/",{
+  auth:{
+    token:localStorage.getItem('token')
+  }
+})
+
+
+
+
+// socket.emit("hello", {name:"My name is madan"});
+// socket.emit("hello",{name:"hello i am madan"})
+
 
 // import Khalti from './pages/khalti/Khalti'
 function App() {
@@ -43,6 +62,9 @@ function App() {
           <Route path='/myorder' element={<MyOrder/>}/>
           <Route path='/myorderqrs' element={<MyOrderQrs/>}/>
           <Route path='/orderdetails/:id' element={<OrderDetails/>}/>
+          <Route path='/forgotpassword/' element={<ForgotPassword/>}/>
+          <Route path='/verifyotp/' element={<VerifyOtp/>}/>
+          <Route path='/resetpassword/' element={<ResetPassword/>}/>
           {/* <Route path='/khalti' element={<Khalti/>}/> */}
         </Routes>
         <Footer/>

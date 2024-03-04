@@ -18,9 +18,9 @@ export default function Navbar() {
     dispatch(logOut());
 
     localStorage.clear();
-    if (status === STATUSES.SUCCESS) {
+    // if (status === STATUSES.SUCCESS) {
       return navigate("/login");
-    }
+    // }
   };
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
