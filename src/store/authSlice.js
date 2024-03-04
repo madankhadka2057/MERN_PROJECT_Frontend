@@ -53,21 +53,20 @@ export function loginUser(data) {
   return async function loginUserThunk(dispatch) {
     dispatch(setStatus(STATUSES.LOADING));
     try {
-      const response = await API.post(
-        "/auth/login",
-        data
-      );
-      console.log(response.data);
+      const response = await API.post("/auth/login", data);
+      console.log(response);
       dispatch(setUser(response.data.data));
-      dispatch(setStatus(STATUSES.SUCCESS));
-      dispatch(setToken(response.data.data));
-      localStorage.setItem("token",response.data.token)
+      dispatch(setToken(response.data.token));
+      localStorage.setItem("token", response.data.token);
+      dispatch(setStatus(STATUSES.LOGIN_SUCCESS));
     } catch (error) {
-      console.log("The error is !!!!!!!!!!!!" + error);
+      console.log("The error is !!!!!!!!!!!!" + error.response.data.message);
       dispatch(setStatus(STATUSES.ERROR));
+      dispatch(setErrorMessage(error.response.data.message));
     }
   };
 }
+
 export function forgetPassword(email){
   return async function forgetPasswordThunk(dispatch){
     dispatch(setStatus(STATUSES.LOADING))

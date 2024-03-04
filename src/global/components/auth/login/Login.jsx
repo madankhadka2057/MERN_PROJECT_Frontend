@@ -1,16 +1,20 @@
-import { useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../../../store/authSlice";
 import { STATUSES } from "../../misc/Staruses";
 import { Link, useNavigate } from "react-router-dom";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export const Login = () => {
   const navigate = useNavigate();
-  const { data, token, status } = useSelector((state) => state.auth);
+  const { data, token, status, errorMsg } = useSelector((state) => state.auth);
   const [userData, setUserData] = useState({
     email: "",
     password: "",
   });
+
   const dispatch = useDispatch();
   const handleChange = (e) => {
     // console.log(e.target.name,e.target.value)
@@ -21,18 +25,29 @@ export const Login = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    dispatch(loginUser(userData));
+   await dispatch(loginUser(userData));
+  }
+    
+    useEffect(() => {
 
-    if (status === STATUSES.SUCCESS) {
-      navigate("/");
-    }
 
-    if (status === STATUSES.ERROR) {
-      return alert("Some thing went to wrong,please try again");
-    }
-  };
+      if (status === STATUSES.LOGIN_SUCCESS) navigate("/");
+      
+  
+      if (status === STATUSES.ERROR) toast(errorMsg,{position: "top-right",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      });
+        // eslint-disable-next-line  
+    }, [status, errorMsg])
+    
 
   return (
     <div
@@ -117,6 +132,7 @@ export const Login = () => {
           </a>
         </div>
       </form>
+      <ToastContainer />
     </div>
   );
 };
