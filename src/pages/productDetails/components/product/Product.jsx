@@ -3,6 +3,7 @@ import { fetchSingleProduct } from "../../../../store/productSlice";
 import { useEffect } from "react";
 // import { add } from "../../../../store/cartSlice";
 import { useNavigate } from "react-router-dom";import { addToCart } from "../../../../store/cartSlice";
+import { STATUSES } from "../../../../global/components/misc/Staruses";
 AbortController
 
 const Product = ({id:productId}) => {
@@ -17,6 +18,15 @@ const Product = ({id:productId}) => {
   const {selectedProduct,status}=useSelector((state)=>state.product)
   const {data:user}=useSelector((state)=>state.auth)
   const product=selectedProduct?.product && selectedProduct?.product[0]
+  console.log(status)
+  useEffect(()=>{
+    if((product==undefined||product==null)&&status===STATUSES.ERROR){
+      console.log("HEllo")
+      navigate("/")
+    }else{
+      console.log("madan",product)
+    }
+  },[product,status])
   const reviews=selectedProduct.productReviews
 
   const handleCart=(productId)=>{

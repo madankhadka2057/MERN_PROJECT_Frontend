@@ -6,7 +6,8 @@ const checkOutSlice=createSlice({
     name:"cherkout",
     initialState:{
         data:[],
-        status:STATUSES.SUCCESS,
+        status:"",
+        checkOutStatus:null,
         orders:null
     },
     reducers:{
@@ -15,6 +16,9 @@ const checkOutSlice=createSlice({
         },
         setStatus(state,action){
             state.status=action.payload
+        },
+        setCheckOutStatus(state,action){
+            state.checkOutStatus=action.payload
         },
         setOrders(state,action){
             state.orders=action.payload
@@ -51,7 +55,7 @@ const checkOutSlice=createSlice({
 })
 
 
-export const {setOrder,setStatus,setOrders,setOrderStatus,setPaymentStatus}=checkOutSlice.actions
+export const {setOrder,setStatus,setOrders,setOrderStatus,setPaymentStatus,setCheckOutStatus}=checkOutSlice.actions
 export default checkOutSlice.reducer
 
 export function createOrder(orderDetails){
@@ -59,9 +63,14 @@ export function createOrder(orderDetails){
         dispatch(setStatus(STATUSES.LOADING))
        try{
         const  response=await AuthenticatedApi.post(`/orders`,orderDetails)
+        // console.log("madan khadka")
         dispatch(setOrder(response.data.data))
-        // console.log(response.data.data)
+        // console.log(response.status)
         dispatch(setStatus(STATUSES.SUCCESS))
+        if(response.status==200){
+            dispatch(setCheckOutStatus(STATUSES.SUCCESS))
+        }
+        
        }
        catch(error){
         console.log("Error from checkout slice is ",error)
@@ -75,7 +84,7 @@ export function fetchOrder(){
         const  response=await AuthenticatedApi.get(`/orders`)
         dispatch(setOrders(response.data.data))
         dispatch(setOrder(response.data.data))
-        // console.log(response.data.data)
+        console.log(response.data.data)
         dispatch(setStatus(STATUSES.SUCCESS))
        }
        catch(error){

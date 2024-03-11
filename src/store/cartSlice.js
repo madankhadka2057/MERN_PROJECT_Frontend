@@ -8,7 +8,7 @@ const cartSlice=createSlice({
     initialState:
        { 
         items:[],
-        status:STATUSES.SUCCESS
+        status:""
     },
     reducers:{
         setItems(state,action){
@@ -47,7 +47,7 @@ export function addToCart(productId){
             const response=await AuthenticatedApi.post(`/cart/${productId}`)
             dispatch(setItems(response.data.data))
             dispatch(setStatus(STATUSES.SUCCESS))
-            console.log(response.data.data)
+            // console.log(response.data.data)
         }catch(error){
             console.log("The error is !!!!!!!!!!!!"+error)
             dispatch(setStatus(STATUSES.ERROR))
@@ -78,7 +78,7 @@ export function updateCartItem(productId,quantity){
     return async function updateCartItemThunk(dispatch){
         dispatch(setStatus(STATUSES.LOADING))
         try{
-            // console.log(productId)
+            // console.log(quantity)
             const response=await AuthenticatedApi.patch(`/cart/${productId}`,{quantity})
             // console.log(response.data.data)
             dispatch(updateItems({productId,quantity}))

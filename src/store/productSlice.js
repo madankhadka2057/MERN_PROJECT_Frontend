@@ -13,7 +13,7 @@ const productSlice=createSlice({
     name:"product",
     initialState:{
         data:[],
-        status:STATUSES.SUCCESS,
+        status:"",
         selectedProduct:{}
     },
     reducers:{
@@ -39,7 +39,7 @@ export function fetchProducts(){
         try{
             const response=await API.get("/products")
             dispatch(setProducts(response.data.data))
-            console.log(response)
+            // console.log(response)
             dispatch(setStatus(STATUSES.SUCCESS))
               
         }catch(error){

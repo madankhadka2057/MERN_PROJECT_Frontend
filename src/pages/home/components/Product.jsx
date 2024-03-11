@@ -4,12 +4,20 @@ import {  useDispatch, useSelector } from "react-redux"
 import { fetchProducts } from "../../../store/productSlice"
 import { useNavigate } from "react-router-dom"
 import Loader from "../../../global/components/loader/Loader"
-const Product = () => {
+// eslint-disable-next-line  
+const Product = ({searchQuery}) => {
     const navigate=useNavigate()
     const dispatch=useDispatch()
     const {data:products,status}=useSelector((state)=>state.product)
+    // console.log(searchQuery)
+    const data = products?.filter((product) =>
+    // eslint-disable-next-line  
+    product.productName.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+//   console.log(data);
     useEffect(()=>{
         dispatch(fetchProducts())
+        // eslint-disable-next-line  
     },[])
 
     if(status=='loading')
@@ -18,14 +26,14 @@ const Product = () => {
     }
     if(status=='error')
     {
-        return<h1>Error!!somthing went to wrong......</h1>
+        return<h1 className="text-center font-bold text-red-500">somthing went to wrong......</h1>
     }
 
 
   return (
-    <div className="flex flex-wrap justify-center">
+    <div id="product" className="flex flex-wrap justify-center">
         {
-            products.map((product)=>{
+            data?.map((product)=>{
                 return(
                     <>
                         <div onClick={()=>navigate(`/productdetails/${product._id}`)} key={product._id} className="mx-auto mt-11 w-80 transform overflow-hidden rounded-lg bg-white dark:bg-slate-800 shadow-md duration-300 hover:scale-90 hover:shadow-lg">
@@ -35,7 +43,7 @@ const Product = () => {
                                 <p className="mb-2 text-base dark:text-gray-300 text-gray-700">{product.productDescription}</p>
                                 <div className="flex items-center">
                                     <p className="mr-2 text-lg font-semibold text-gray-900 dark:text-white">{product.productPrice}</p>
-                                    <p className="text-base  font-medium text-gray-500 line-through dark:text-gray-300">$25.00</p>
+                                    {/* <p className="text-base  font-medium text-gray-500 line-through dark:text-gray-300">$25.00</p> */}
                                     <p className="ml-auto text-base font-medium text-green-500">20% off</p>
                                 </div>
                             </div>

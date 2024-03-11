@@ -1,20 +1,25 @@
 import { useDispatch, useSelector } from "react-redux";
 import {useForm} from 'react-hook-form'
 import { useEffect, useState } from "react";
-import { createOrder } from "../../store/checkOutSlice";
+import { createOrder, setCheckOutStatus } from "../../store/checkOutSlice";
 import { useNavigate } from "react-router-dom";
 import { STATUSES } from "../../global/components/misc/Staruses";
 import {AuthenticatedApi} from "../../http/Hello"
 import { emptyItems } from "../../store/cartSlice";
 const CheckOut = () => {
     const navigate=useNavigate()
-    const { items: products } = useSelector((state) => state.cart);
+    const { items: products} = useSelector((state) => state.cart);
     const dispatch=useDispatch()
     const {register,handleSubmit,formState}=useForm()
     const [paymentMethod,setPaymentMethod]=useState("COD")
-
-    const {data,status}=useSelector((state)=>state.checkout)
+    // if(products.length>0){
+    //   navigate("/cart")
+    // }else{
+    //   alert("No Product Found")
+    // }
+    const {data,status,checkOutStatus}=useSelector((state)=>state.checkout)
     const subTotal=products.reduce((amount,items)=>items.quantity*items.product.productPrice+amount,0)
+    console.log(products.length)
     const shippingAmount=100,
     totalAmount=subTotal+shippingAmount
     const handleOrder=(data)=>{
@@ -30,17 +35,22 @@ const CheckOut = () => {
     const proceedForKhaltiPayment=()=>{
         if(paymentMethod==="Khalti Payment"&&status===STATUSES.SUCCESS&&data.length>0){
             const {totalAmount,_id}=data[data.length-1]
-            // console.log(totalAmount,_id,"HEllo madan")
-            // navigate(`/khalti?orderId=${_id}&totalAmount=${totalAmount}`)
             handleKhalti(_id,totalAmount)
-
         }
-        if(paymentMethod==="COD"&&status===STATUSES.SUCCESS&&data.length>0){
-            alert("Order Placed Successfully")
+        if(paymentMethod==="COD"&&data.length>0){
+           
+          // console.log("I ma logging")
             dispatch(emptyItems())
-            navigate("/")
+           
         }
     }
+    useEffect(()=>{
+      if(paymentMethod==="COD"&&checkOutStatus===STATUSES.SUCCESS){
+        dispatch(setCheckOutStatus(null))
+        alert("Order Placed Successfully")
+        navigate("/")
+      }
+    },[paymentMethod,checkOutStatus])
     useEffect(()=>{
         proceedForKhaltiPayment()
     },[status,data])
@@ -262,11 +272,12 @@ const CheckOut = () => {
           </div>
           {
             paymentMethod==="COD"?(
-                <button className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white" style={{backgroundColor:"green"}}>
+                <button className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white" style={{backgroundColor:products.length!==0?"green":"lightgreen" }}disabled={products.length === 0}>
             Place Order
           </button>
             ):(
-                <button className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white"style={{backgroundColor:"purple"}}>
+              
+                <button className={`mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white`}style={{backgroundColor:products.length!==0?"purple":"lightpink"}}disabled={products.length === 0}>
             Payment With Khalti
           </button>
             )
