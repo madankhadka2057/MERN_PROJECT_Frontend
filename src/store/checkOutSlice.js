@@ -8,7 +8,9 @@ const checkOutSlice=createSlice({
         data:[],
         status:"",
         checkOutStatus:null,
-        orders:null
+        orders:null,
+        message:"",
+        messageStatus:""
     },
     reducers:{
         setOrder(state,action){
@@ -19,6 +21,9 @@ const checkOutSlice=createSlice({
         },
         setCheckOutStatus(state,action){
             state.checkOutStatus=action.payload
+        },
+        setMessageStatus(state,action){
+            state.messageStatus=action.payload
         },
         setOrders(state,action){
             state.orders=action.payload
@@ -50,12 +55,20 @@ const checkOutSlice=createSlice({
                 }
             });
             return { ...state, orders: updatedOrders };
+        },
+        setFilterOrder(state,action){
+            const index=state.orders.findIndex((order)=>order._id===action.payload.id)
+            if(index!==-1){
+                state.orders.splice(index,1)
+            }
+        },setMessage(state,action){
+            state.message=action.payload
         }
     }
 })
 
 
-export const {setOrder,setStatus,setOrders,setOrderStatus,setPaymentStatus,setCheckOutStatus}=checkOutSlice.actions
+export const {setOrder,setStatus,setOrders,setOrderStatus,setPaymentStatus,setCheckOutStatus,setMessageStatus,setFilterOrder,setMessage}=checkOutSlice.actions
 export default checkOutSlice.reducer
 
 export function createOrder(orderDetails){
@@ -65,10 +78,12 @@ export function createOrder(orderDetails){
         const  response=await AuthenticatedApi.post(`/orders`,orderDetails)
         // console.log("madan khadka")
         dispatch(setOrder(response.data.data))
-        // console.log(response.status)
+        // console.log(response.data.message)
         dispatch(setStatus(STATUSES.SUCCESS))
         if(response.status==200){
+            dispatch(setMessage(response.data.message))
             dispatch(setCheckOutStatus(STATUSES.SUCCESS))
+            dispatch(setMessageStatus(STATUSES.SUCCESS))
         }
         
        }
@@ -88,7 +103,7 @@ export function fetchOrder(){
         dispatch(setStatus(STATUSES.SUCCESS))
        }
        catch(error){
-        console.log("Error from checkout slice is ",error)
+        console.log("Error from checkout slice is ",error.response)
        }
     }
 }
@@ -102,5 +117,10 @@ export function updatePaymentStatusInStore(data){
     return async function updatePaymentStatusInStoreThunk(dispatch){
         // console.log(data)
         dispatch(setPaymentStatus(data))
+    }
+}
+export function filterMyOrders(id){
+    return async function filterMyOrderThunk(dispatch){
+        dispatch(setFilterOrder({id}))
     }
 }

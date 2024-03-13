@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { verifyOtp } from "../../../../store/authSlice"
+import { setErrorMessage, verifyOtp } from "../../../../store/authSlice"
 import { STATUSES } from "../../misc/Staruses"
 import { useNavigate } from "react-router-dom"
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const VerifyOtp = () => {
     const navigate=useNavigate()
-    const {status,data}=useSelector(state=>state.auth)
+    const {status,data,forgetPassStatus,verifyOtpStatus,errorMsg}=useSelector(state=>state.auth)
+    // console.log(verifyOtpStatus)
+    // console.log(status)
     const dispatch=useDispatch()
     const [emailAndOtp,setEmailAndOtp]=useState({
         email:data.data,
     })
+    
     const handleInputChange=(e)=>{
         const {name,value}=e.target
         setEmailAndOtp((prevData)=>({
@@ -20,17 +24,41 @@ const VerifyOtp = () => {
         }))
        
     }
-    // useEffect(()=>{
-    //     if (status===STATUSES.SUCCESS){
-    //         navigate('/resetPassword')
-    //     }
-    // },[status])
+    useEffect(()=>{
+        if (data.length===0){
+          // console.log("first")
+          navigate('/forgotpassword')
+        }
+    },[])
+    useEffect(()=>{
+        if (verifyOtpStatus===true){
+            // console.log("I am logging")
+            navigate('/resetPassword')
+        }
+    /*eslint-disable-next-line*/
+    },[verifyOtpStatus])
+
+    useEffect(()=>{
+      if(errorMsg&&verifyOtpStatus===false){
+        toast(errorMsg, {
+          position: "top-right",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
+          dispatch(setErrorMessage(null))
+      }
+      /*eslint-disable-next-line*/
+    },[errorMsg,verifyOtpStatus])
 
 
     const handleVerifyOtp=(e)=>{
        e.preventDefault()
        dispatch(verifyOtp(emailAndOtp))
-       navigate('/resetPassword')
     }
 
   return (
@@ -54,7 +82,7 @@ const VerifyOtp = () => {
           name="email"
           id="email"
           value={data.data}
-          disabled
+          disabled={data.data ? true : false}
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
           placeholder="name@company.com"
           required
@@ -88,6 +116,7 @@ const VerifyOtp = () => {
       </button>
       
     </form>
+    <ToastContainer/>
   </div>
   )
 }

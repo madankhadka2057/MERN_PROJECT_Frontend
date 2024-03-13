@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../../../../store/authSlice";
+import { loginUser, setLoginStatus } from "../../../../store/authSlice";
 import { STATUSES } from "../../misc/Staruses";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export const Login = () => {
   const navigate = useNavigate();
-  const { data, token, status, errorMsg } = useSelector((state) => state.auth);
+  const { data, token, status, errorMsg,loginStatus } = useSelector((state) => state.auth);
   const [userData, setUserData] = useState({
     email: "",
     password: "",
@@ -31,14 +31,12 @@ export const Login = () => {
   }
     
     useEffect(() => {
-
-
       if (status === STATUSES.LOGIN_SUCCESS) {
         navigate("/"); 
       }
   
       if (status === STATUSES.ERROR) toast(errorMsg,{position: "top-right",
-      autoClose: 3000,
+      autoClose: 1000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -48,6 +46,20 @@ export const Login = () => {
       });
      // eslint-disable-next-line  
     }, [status, errorMsg])
+    useEffect(() => {
+     
+      if (errorMsg&&loginStatus === STATUSES.SUCCESS) toast(errorMsg,{position: "top-right",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+      dispatch(setLoginStatus(null))
+      // eslint-disable-next-line  
+    }, [loginStatus, errorMsg])
     
 
   return (

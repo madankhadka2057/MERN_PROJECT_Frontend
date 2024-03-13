@@ -8,7 +8,11 @@ const authSlice = createSlice({
     status: "",
     token: "",
     errorMsg:"",
-    loginStatus:""
+    // message:"",
+    loginStatus:"",
+    forgetPassStatus:"",
+    verifyOtpStatus:false,
+    resetPasswordStatus:false
   },
   reducers: {
     setUser(state, action) {
@@ -30,11 +34,19 @@ const authSlice = createSlice({
     },
     setLoginStatus(state,action){
       state.loginStatus=action.payload
+    },
+    setforgetPassStatus(state,action){
+      state.forgetPassStatus=action.payload
+    },
+    setVerifyOtpStatus(state,action){
+      state.verifyOtpStatus=action.payload
+    },
+    setResetPasswordStatus(state,action){
+      state.resetPasswordStatus=action.payload
     }
-  },
-});
+}});
 
-export const { setUser, setStatus, setToken,logOut,setErrorMessage,setLoginStatus} = authSlice.actions;
+export const { setUser, setStatus, setToken,logOut,setErrorMessage,setLoginStatus,setforgetPassStatus,setVerifyOtpStatus,setResetPasswordStatus} = authSlice.actions;
 export default authSlice.reducer;
 
 export function registerUser(data) {
@@ -45,10 +57,14 @@ export function registerUser(data) {
         "/auth/register",
         data
       );
-      console.log(response.data);
-      dispatch(setStatus(STATUSES.SUCCESS));
+      console.log(response)
+      if(response.status===200){
+        dispatch(setErrorMessage(response.data.message))
+        dispatch(setLoginStatus(STATUSES.SUCCESS))
+        dispatch(setStatus(STATUSES.SUCCESS));
+      }
     } catch (error) {
-      console.log("The error is !!!!!!!!!!!!" + error);
+      // console.log(error.response.data.message);
       dispatch(setStatus(STATUSES.ERROR));
     }
   };
@@ -79,11 +95,17 @@ export function forgetPassword(email){
     try{
       const response=await API.post("/auth/forgetPassword",{email})
       dispatch(setUser(response.data))
-      dispatch(setStatus(STATUSES.SUCCESS))
+      dispatch(setforgetPassStatus(STATUSES.SUCCESS))
       // console.log(response.data)
     }catch(err){
       dispatch(setStatus(STATUSES.ERROR))
-      console.log("Error is :",err)
+      dispatch(setforgetPassStatus(STATUSES.ERROR))
+      if(err?.response?.data){
+        dispatch(setErrorMessage(err.response.data.message))
+      }else{
+
+        console.log("Error is :",err)
+      }
     }
   }
 }
@@ -93,28 +115,35 @@ export function verifyOtp(data){
     try{
       const response=await API.post("/auth/verifyOtp",{email:data.email,otp:data.otp})
       // dispatch(setUser(response.data))
+     if(response.status===200){
+      dispatch(setVerifyOtpStatus(true))
       dispatch(setStatus(STATUSES.SUCCESS))
+     }
       console.log(response)
     }catch(err){
       dispatch(setStatus(STATUSES.ERROR))
-      console.log("Error is :",err)
+      dispatch(setErrorMessage(err.response.data.message))
+      console.log(err.response.data.message)
     }
   }
 }
 export function resetPassword(data){
   return async function resetPasswordThunk(dispatch){
-    dispatch(setStatus(STATUSES.LOADING))
+    dispatch(setforgetPassStatus(STATUSES.LOADING))
     try{
       console.log(data)
       const response=await API.post("/auth/resetPassword",data)
       // dispatch(setUser(response.data))
-      dispatch(setStatus(STATUSES.SUCCESS))
+      if(response.status==200){
+        dispatch(setResetPasswordStatus(true))
+      }
       console.log(response)
     }catch(err){
-      dispatch(setStatus(STATUSES.ERROR))
-      console.log("Error is :",err)
+      dispatch(setResetPasswordStatus(false))
+      console.log("Error is :",err.response.data.message)
+      dispatch(setErrorMessage(err.response.data.message))
       // console.log(err.response.data.message)
-      dispatch(setErrorMessage(err.response.data))
+      dispatch(setErrorMessage(err.response.data.message))
     }
   }
 }

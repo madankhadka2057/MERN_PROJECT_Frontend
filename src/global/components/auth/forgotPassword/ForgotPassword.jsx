@@ -1,27 +1,53 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { forgetPassword } from "../../../../store/authSlice";
+import { forgetPassword, setErrorMessage, setforgetPassStatus } from "../../../../store/authSlice";
 import { STATUSES } from "../../misc/Staruses";
 import { useNavigate } from "react-router-dom";
+
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 const ForgotPassword = () => {
   const [email,setEmail]=useState('')
   const dispatch=useDispatch()
   const navigate=useNavigate()
 
 
-  const {status}=useSelector(state=>state.auth)
+  const {status,forgetPassStatus,errorMsg}=useSelector(state=>state.auth)
+  // console.log(status,forgetPassStatus,errorMsg)
   const forgotPassword=(e)=>{
     e.preventDefault()
     dispatch(forgetPassword(email))
   }  
   useEffect(()=>{
-    if(status===STATUSES.SUCCESS){
+    if(forgetPassStatus===STATUSES.SUCCESS){
       navigate('/verifyOtp')
+      dispatch(setforgetPassStatus(null))
     }
   }),[status]
   
+  useEffect(()=>{
+    if(errorMsg&&forgetPassStatus===STATUSES.ERROR){
+      console.log(forgetPassStatus,errorMsg)
+      toast(errorMsg, {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
+        dispatch(setforgetPassStatus(null))
+        dispatch(setErrorMessage(null))
+    }
+    /*eslint-disable-next-line*/
+  },[errorMsg,forgetPassStatus])
+
   return (
-    <div>{status===STATUSES.LOADING&&
+    <div>
+      <section className="bg-gray-50 dark:bg-gray-900">
+      {status===STATUSES.LOADING&&
       <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="w-12 h-12 mt-20 m-auto animate-spin"
         viewBox="0 0 16 16">
         <path
@@ -30,19 +56,8 @@ const ForgotPassword = () => {
             d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z" />
       </svg>
       }
-      <section className="bg-gray-50 dark:bg-gray-900">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-          <a
-            href="#"
-            className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
-          >
-            <img
-              className="w-8 h-8 mr-2"
-              src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
-              alt="logo"
-            />
-            Flowbite
-          </a>
+         
           <div className="w-full p-6 bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md dark:bg-gray-800 dark:border-gray-700 sm:p-8">
             <h2 className="mb-1 text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Change Password
@@ -70,6 +85,7 @@ const ForgotPassword = () => {
           </div>
         </div>
       </section>
+      <ToastContainer/>
     </div>
   );
 };

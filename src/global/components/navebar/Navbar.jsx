@@ -31,7 +31,12 @@ export default function Navbar() {
   }, [dispatch]);
 
   return (
+     
     <div className="fixed w-full z-10 bg-white top-0">
+       {/* <header>
+        <img src="food.png" alt="Logo" />
+      <h1>Welcome to My App</h1>
+    </header> */}
       <nav
         className="relative z-10 w-full bg-white md:absolute md:bg-transparent"
         style={{ backgroundColor: "White" }}

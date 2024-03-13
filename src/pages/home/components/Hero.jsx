@@ -7,12 +7,27 @@ import { setLoginStatus } from '../../../store/authSlice';
 // eslint-disable-next-line  
 export const Hero = ({handleSearchInputChange}) => {
     let {loginStatus,errorMsg} = useSelector((state) => state.auth);
-    // console.log(loginStatus,errorMsg)
+    let {message,messageStatus}=useSelector((state) => state.checkout);
     const dispatch=useDispatch()
+    console.log(message,messageStatus)
+    useEffect(()=>{
+        if(message&&messageStatus===STATUSES.SUCCESS ){
+            toast(message,{position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            })
+        }
+    },[message,messageStatus])
+
     useEffect(()=>{
        if(loginStatus===STATUSES.SUCCESS){
         toast(errorMsg,{position: "top-right",
-        autoClose: 3000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,

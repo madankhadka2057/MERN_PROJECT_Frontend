@@ -5,21 +5,24 @@ import { createOrder, setCheckOutStatus } from "../../store/checkOutSlice";
 import { useNavigate } from "react-router-dom";
 import { STATUSES } from "../../global/components/misc/Staruses";
 import {AuthenticatedApi} from "../../http/Hello"
+// import { removeCartItemAfterOrder } from "../../store/cartSlice";
 import { emptyItems } from "../../store/cartSlice";
 const CheckOut = () => {
     const navigate=useNavigate()
-    const { items: products} = useSelector((state) => state.cart);
+    const { items: products,statuses} = useSelector((state) => state.cart);
+    
+   
     const dispatch=useDispatch()
     const {register,handleSubmit,formState}=useForm()
     const [paymentMethod,setPaymentMethod]=useState("COD")
-    // if(products.length>0){
-    //   navigate("/cart")
-    // }else{
-    //   alert("No Product Found")
-    // }
+    useEffect(()=>{
+      if(statuses===STATUSES.ERROR){
+      navigate("/cart")
+      }
+    },[statuses])
     const {data,status,checkOutStatus}=useSelector((state)=>state.checkout)
     const subTotal=products.reduce((amount,items)=>items.quantity*items.product.productPrice+amount,0)
-    console.log(products.length)
+    
     const shippingAmount=100,
     totalAmount=subTotal+shippingAmount
     const handleOrder=(data)=>{
@@ -40,15 +43,18 @@ const CheckOut = () => {
         if(paymentMethod==="COD"&&data.length>0){
            
           // console.log("I ma logging")
-            dispatch(emptyItems())
+            // dispatch(emptyItems())
+          //   console.log("ID is ",id)
+          //  dispatch(removeCartItemAfterOrder(id))
            
         }
     }
     useEffect(()=>{
       if(paymentMethod==="COD"&&checkOutStatus===STATUSES.SUCCESS){
         dispatch(setCheckOutStatus(null))
-        alert("Order Placed Successfully")
+        dispatch(emptyItems())
         navigate("/")
+        // alert("Order Placed Successfully")
       }
     },[paymentMethod,checkOutStatus])
     useEffect(()=>{

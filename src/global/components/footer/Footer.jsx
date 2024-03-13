@@ -7,15 +7,14 @@ function Footer() {
               <div className="px-6">
                 <a href="#">
                   <img
-                    className="w-auto h-7"
-                    src="https://merakiui.com/images/full-logo.svg"
+                    className="w-auto h-20"
+                    src="food.png"
                     alt=""
                   />
                 </a>
 
                 <p className="max-w-sm mt-2 text-gray-500 dark:text-gray-400">
-                  Join 31,000+ other and never miss out on new tips, tutorials,
-                  and more.
+                Our food delivery platform simplifies ordering from local restaurants, offering a diverse menu selection, secure payments, and real-time order tracking for a seamless dining experience
                 </p>
 
                 <div className="flex mt-6 -mx-2">
@@ -35,7 +34,10 @@ function Footer() {
                   </a>
 
                   <a
-                    href="#"
+                  
+                    href="https://www.facebook.com/madan.khadka.1656854"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="mx-2 text-gray-600 transition-colors duration-300 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400"
                     aria-label="Facebook"
                   >
@@ -50,7 +52,9 @@ function Footer() {
                   </a>
 
                   <a
-                    href="#"
+                    href="https://github.com/madankhadka2057/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="mx-2 text-gray-600 transition-colors duration-300 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400"
                     aria-label="Github"
                   >
@@ -68,7 +72,7 @@ function Footer() {
             </div>
 
             <div className="mt-6 lg:mt-0 lg:flex-1">
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+              <div className="grid grid-cols-1 gap-6  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 <div>
                   <h3 className="text-gray-700 uppercase dark:text-white">
                     About
@@ -125,19 +129,19 @@ function Footer() {
                     href="#"
                     className="block mt-2 text-sm text-gray-600 dark:text-gray-400 hover:underline"
                   >
-                    Mega cloud
+                    Blueberry Muffins
                   </a>
                   <a
                     href="#"
                     className="block mt-2 text-sm text-gray-600 dark:text-gray-400 hover:underline"
                   >
-                    Aperion UI
+                    Pepperoni Pizza
                   </a>
                   <a
                     href="#"
                     className="block mt-2 text-sm text-gray-600 dark:text-gray-400 hover:underline"
                   >
-                    Meraki UI
+                    Caesar Salad
                   </a>
                 </div>
 
@@ -146,10 +150,10 @@ function Footer() {
                     Contact
                   </h3>
                   <span className="block mt-2 text-sm text-gray-600 dark:text-gray-400 hover:underline">
-                    +1 526 654 8965
+                    +9779867365986
                   </span>
                   <span className="block mt-2 text-sm text-gray-600 dark:text-gray-400 hover:underline">
-                    example@email.com
+                    madankhadka2057@gmail.com
                   </span>
                 </div>
               </div>
@@ -160,7 +164,7 @@ function Footer() {
 
           <div>
             <p className="text-center text-gray-500 dark:text-gray-400">
-              © Brand 2020 - All rights reserved
+              © Kailash Food 2024 - All rights reserved
             </p>
           </div>
         </div>

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import {Hero} from "./components/Hero"
 import Product from "./components/Product"
-
 export const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");
 

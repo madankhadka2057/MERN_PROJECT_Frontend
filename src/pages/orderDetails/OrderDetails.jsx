@@ -1,11 +1,13 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthenticatedApi } from "../../http/Hello";
 import QRCode from "react-qr-code";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { filterMyOrders } from "../../store/checkOutSlice";
 const OrderDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const dispatch=useDispatch()
   const { orders } = useSelector((state) => state.checkout);
 
   const backendUrl = `http://localhost:3000/admin/orders/${id}`;
@@ -48,6 +50,7 @@ const OrderDetails = () => {
       console.log(response.status);
       console.log(response.data.message);
       if (response.status === 200) {
+        dispatch(filterMyOrders(id))
         navigate("/myorder");
       }
     } catch (error) {

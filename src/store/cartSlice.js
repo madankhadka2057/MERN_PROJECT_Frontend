@@ -8,14 +8,14 @@ const cartSlice=createSlice({
     initialState:
        { 
         items:[],
-        status:""
+        statuses:STATUSES.SUCCESS
     },
     reducers:{
         setItems(state,action){
             state.items=action.payload
         },
         setStatus(state,action){
-            state.status=action.payload
+            state.statuses=action.payload
         },
         updateItems(state,action){
             const index=state.items.findIndex((items)=>items.product._id===action.payload.productId)
@@ -28,6 +28,13 @@ const cartSlice=createSlice({
             const index=state.items.findIndex(items=>items.product._id===action.payload.productId)
             state.items.splice(index,1)
         },
+        spliceCartItem(state,action){
+            const index=state.items.findIndex((items)=>items._id===action.payload.id)
+            if(index!==-1){
+                console.log(index)
+               state.items.splice(index,1)
+            }
+        },
         emptyItems(state){
             state.items=[]
         }
@@ -35,7 +42,7 @@ const cartSlice=createSlice({
 
 })
 
-export const {setItems,setStatus,updateItems,deleteItems,emptyItems}=cartSlice.actions
+export const {setItems,setStatus,updateItems,deleteItems,emptyItems,spliceCartItem}=cartSlice.actions
 
 export default cartSlice.reducer
 
@@ -62,7 +69,7 @@ export function fetchCartItem(){
         try{
            
             const response=await AuthenticatedApi.get(`/cart/`)
-            console.log(response.data.data)
+            // console.log(response.data.data)
             dispatch(setItems(response.data.data))
             dispatch(setStatus(STATUSES.SUCCESS))
               
@@ -104,5 +111,10 @@ export function deleteCartItem(productId){
             console.log("The error is !!!!!!!!!!!!"+error)
             dispatch(setStatus(STATUSES.ERROR))
         }
+    }
+}
+export function removeCartItemAfterOrder(id){
+    return async function removeCartItemAfterOrderThunk(dispatch){
+        dispatch(spliceCartItem({id}))
     }
 }
