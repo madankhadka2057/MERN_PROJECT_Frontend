@@ -16,7 +16,7 @@ const CheckOut = () => {
     const {register,handleSubmit,formState}=useForm()
     const [paymentMethod,setPaymentMethod]=useState("COD")
     useEffect(()=>{
-      if(statuses===STATUSES.ERROR||products.length==0){
+      if(statuses===STATUSES.ERROR&&products.length==0){
       navigate("/cart")
       }
       /*eslint-disable-next-line*/
