@@ -5,12 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 // import { STATUSES } from '../../../../../frontendAdmin/src/globals/misc/Statuses';
 import { setLoginStatus } from '../../../store/authSlice';
 import { STATUSES } from '../../../global/components/misc/Staruses';
+import { setMessageStatus } from '../../../store/checkOutSlice';
 // eslint-disable-next-line  
 export const Hero = ({handleSearchInputChange}) => {
     let {loginStatus,errorMsg} = useSelector((state) => state.auth);
     let {message,messageStatus}=useSelector((state) => state.checkout);
     const dispatch=useDispatch()
-    console.log(message,messageStatus)
+    // console.log(message,messageStatus)
     useEffect(()=>{
         if(message&&messageStatus===STATUSES.SUCCESS ){
             toast(message,{position: "top-right",
@@ -23,6 +24,8 @@ export const Hero = ({handleSearchInputChange}) => {
             theme: "light",
             })
         }
+        dispatch(setMessageStatus(null))
+        // eslint-disable-next-line 
     },[message,messageStatus])
 
     useEffect(()=>{
