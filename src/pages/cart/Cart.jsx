@@ -76,7 +76,7 @@ export const Cart = () => {
                             className="h-8 w-8 border bg-white text-center text-xs outline-none"
                             type="number"
                             value={product?.quantity}
-                            min="1"
+                            min="2"
                           />
                           {/* {console.log(product.product._id)} */}
                           <span
