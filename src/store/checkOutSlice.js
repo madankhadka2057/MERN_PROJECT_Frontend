@@ -50,7 +50,6 @@ const checkOutSlice=createSlice({
                         }
                     };
                 } else {
-                    console.log("Hello world");
                     return order;
                 }
             });
@@ -99,7 +98,7 @@ export function fetchOrder(){
         const  response=await AuthenticatedApi.get(`/orders`)
         dispatch(setOrders(response.data.data))
         dispatch(setOrder(response.data.data))
-        console.log(response.data.data)
+        // console.log(response.data.data)
         dispatch(setStatus(STATUSES.SUCCESS))
        }
        catch(error){

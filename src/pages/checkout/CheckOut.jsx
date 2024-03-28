@@ -16,10 +16,11 @@ const CheckOut = () => {
     const {register,handleSubmit,formState}=useForm()
     const [paymentMethod,setPaymentMethod]=useState("COD")
     useEffect(()=>{
-      if(statuses===STATUSES.ERROR){
+      if(statuses===STATUSES.ERROR||products.length==0){
       navigate("/cart")
       }
-    },[statuses])
+      /*eslint-disable-next-line*/
+    },[statuses,products])
     const {data,status,checkOutStatus}=useSelector((state)=>state.checkout)
     const subTotal=products.reduce((amount,items)=>items.quantity*items.product.productPrice+amount,0)
     

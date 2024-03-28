@@ -4,6 +4,8 @@ import Loader from '../../global/components/loader/Loader'
 import {useNavigate} from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { emptyItems } from '../../store/cartSlice'
+import { setMessage, setMessageStatus } from '../../store/checkOutSlice'
+import { STATUSES } from '../../global/components/misc/Staruses'
 const KhaltiSuccess = () => {
   const navigate=useNavigate()
   const dispatch=useDispatch()
@@ -16,7 +18,9 @@ const KhaltiSuccess = () => {
       if(response.status===200){
         setLoading(false)
         dispatch(emptyItems())
-        alert(response.data.message)
+        dispatch(setMessage(response.data.message))
+        dispatch(setMessageStatus(STATUSES.SUCCESS))
+        // alert(response.data.message)
         navigate("/")
       }
     } catch (error) {
