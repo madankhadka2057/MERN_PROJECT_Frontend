@@ -27,7 +27,7 @@ import ResetPassword from './global/components/auth/forgotPassword/ResetPassword
 
 
 import {io} from 'socket.io-client'
-export const socket=io("http://localhost:3001/",{
+export const socket=io("https://foodorder-8jma.onrender.com/",{
   auth:{
     token:localStorage.getItem('token')
   }
