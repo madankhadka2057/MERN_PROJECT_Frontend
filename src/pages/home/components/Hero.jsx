@@ -12,7 +12,7 @@ export const Hero = ({handleSearchInputChange}) => {
     const dispatch=useDispatch()
     console.log(message,messageStatus)
     useEffect(()=>{
-        if(message&&messageStatus===STATUSESATUSES.SUCCESS ){
+        if(message&&messageStatus===STATUSES.SUCCESS ){
             toast(message,{position: "top-right",
             autoClose: 1000,
             hideProgressBar: false,
