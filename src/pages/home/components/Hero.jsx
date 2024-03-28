@@ -2,8 +2,9 @@ import {useEffect} from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from "react-redux";
-import { STATUSES } from '../../../../../frontendAdmin/src/globals/misc/Statuses';
+// import { STATUSES } from '../../../../../frontendAdmin/src/globals/misc/Statuses';
 import { setLoginStatus } from '../../../store/authSlice';
+import { STATUSES } from '../../../global/components/misc/Staruses';
 // eslint-disable-next-line  
 export const Hero = ({handleSearchInputChange}) => {
     let {loginStatus,errorMsg} = useSelector((state) => state.auth);
@@ -11,7 +12,7 @@ export const Hero = ({handleSearchInputChange}) => {
     const dispatch=useDispatch()
     console.log(message,messageStatus)
     useEffect(()=>{
-        if(message&&messageStatus===STATUSES.SUCCESS ){
+        if(message&&messageStatus===STATUSESATUSES.SUCCESS ){
             toast(message,{position: "top-right",
             autoClose: 1000,
             hideProgressBar: false,
