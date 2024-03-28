@@ -34,8 +34,6 @@ const OrderDetails = () => {
   const cancelOrder = async () => {
     try {
       const response = await AuthenticatedApi.patch("orders/cancel", { id });
-      console.log(response.status);
-      console.log(response.data);
       if (response.status === 200) {
         navigate("/myorder");
       }
@@ -47,8 +45,7 @@ const OrderDetails = () => {
   const deleteOrder = async () => {
     try {
       const response = await AuthenticatedApi.delete(`orders/${id}`);
-      console.log(response.status);
-      console.log(response.data.message);
+    
       if (response.status === 200) {
         dispatch(filterMyOrders(id))
         navigate("/myorder");

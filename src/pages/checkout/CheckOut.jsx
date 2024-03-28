@@ -54,6 +54,7 @@ const CheckOut = () => {
       if(paymentMethod==="COD"&&checkOutStatus===STATUSES.SUCCESS){
         dispatch(setCheckOutStatus(null))
         dispatch(emptyItems())
+        console.log("I am navigating to home")
         navigate("/")
         // alert("Order Placed Successfully")
       }

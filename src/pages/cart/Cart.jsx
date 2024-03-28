@@ -123,6 +123,7 @@ export const Cart = () => {
                 fontSize: "40px",
                 textAlign: "center",
                 fontWeight: "bold",
+                color:"red"
               }}
             >
               Please Add Items to Cart
