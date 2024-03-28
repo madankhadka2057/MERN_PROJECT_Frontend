@@ -119,11 +119,11 @@ export function verifyOtp(data){
       dispatch(setVerifyOtpStatus(true))
       dispatch(setStatus(STATUSES.SUCCESS))
      }
-      console.log(response)
+
     }catch(err){
       dispatch(setStatus(STATUSES.ERROR))
       dispatch(setErrorMessage(err.response.data.message))
-      console.log(err.response.data.message)
+
     }
   }
 }
@@ -131,13 +131,13 @@ export function resetPassword(data){
   return async function resetPasswordThunk(dispatch){
     dispatch(setforgetPassStatus(STATUSES.LOADING))
     try{
-      console.log(data)
+      // console.log(data)
       const response=await API.post("/auth/resetPassword",data)
       // dispatch(setUser(response.data))
       if(response.status==200){
         dispatch(setResetPasswordStatus(true))
       }
-      console.log(response)
+      // console.log(response)
     }catch(err){
       dispatch(setResetPasswordStatus(false))
       console.log("Error is :",err.response.data.message)

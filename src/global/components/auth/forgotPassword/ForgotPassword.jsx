@@ -27,7 +27,7 @@ const ForgotPassword = () => {
   
   useEffect(()=>{
     if(errorMsg&&forgetPassStatus===STATUSES.ERROR){
-      console.log(forgetPassStatus,errorMsg)
+      // console.log(forgetPassStatus,errorMsg)
       toast(errorMsg, {
         position: "top-right",
         autoClose: 1000,

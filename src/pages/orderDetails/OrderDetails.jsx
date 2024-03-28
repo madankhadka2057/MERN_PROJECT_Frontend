@@ -20,7 +20,7 @@ const OrderDetails = () => {
   const filteredOrder = orders?.filter((order) => order?._id === id)[0];
 
   // :filteredOrder.items[0].product(navigate("/myorder"))
-  console.log(filteredOrder);
+  // console.log(filteredOrder);
   useEffect(() => {
     if (
       filteredOrder === "" ||

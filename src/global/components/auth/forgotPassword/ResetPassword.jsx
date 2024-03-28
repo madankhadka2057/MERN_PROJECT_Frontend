@@ -18,7 +18,7 @@ const ResetPassword = () => {
     dispatch(resetPassword(data));
   };
   useEffect(()=>{
-    console.log(resetPasswordStatus,errorMsg)
+    // console.log(resetPasswordStatus,errorMsg)
     if(resetPasswordStatus==true){
       navigate('/login')
     }
